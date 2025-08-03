@@ -4,6 +4,7 @@ import folium
 from streamlit_folium import st_folium
 import os
 
+#Correr la aplicación con: streamlit run streamlit_app.py
 APP_TITLE = "Cafe Map Visualizer"
 APP_SUBTITLE = "Prueba Dashboard"
 
