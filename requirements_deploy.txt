@@ -1,0 +1,6 @@
+panel>=1.7.0
+geopandas>=1.0.0
+folium>=0.14.0
+pyproj>=3.4.0
+pandas>=2.0.0
+numpy>=1.24.0
