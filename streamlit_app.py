@@ -10,11 +10,18 @@ APP_SUBTITLE = "Prueba Dashboard"
 @st.cache_data
 def load_geojson():
     """Carga el archivo GeoJSON con cache para mejorar rendimiento"""
-    geojson_path = 'Data/cober_arborea_2021_dissolve_4326.geojson'
-    if not os.path.exists(geojson_path):
-        st.error(f"No se encontró el archivo: {geojson_path}")
+    # Usar el archivo optimizado primero, luego el original como respaldo
+    optimized_path = 'Data/cober_arborea_2021_optimized.geojson'
+    original_path = 'Data/cober_arborea_2021_dissolve_4326.geojson'
+    
+    if os.path.exists(optimized_path):
+        return optimized_path
+    elif os.path.exists(original_path):
+        st.warning("Usando archivo original. Se recomienda usar el archivo optimizado para mejor rendimiento.")
+        return original_path
+    else:
+        st.error("No se encontró ningún archivo GeoJSON")
         return None
-    return geojson_path
 
 def display_map():
     try:
