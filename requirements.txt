@@ -5,3 +5,4 @@ streamlit-folium
 geemap
 leafmap
 owslib
+requests
