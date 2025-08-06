@@ -67,7 +67,7 @@ def display_map():
                     st.error("No se pudo cargar ninguna versión del mapa.")
             
             # Mostrar el mapa en Streamlit con altura adaptable
-            m.to_streamlit(height=700)
+            m.to_streamlit(width=850, height=600)
         
     except Exception as e:
         st.error(f"Error general: {str(e)}")
