@@ -3,7 +3,6 @@ import leafmap.foliumap as leafmap
 import requests
 import os
 import time
-from streamlit.runtime.caching.cache_data_api import get_data_cache_stats
 
 # Correr la aplicación con: streamlit run streamlit_app.py
 APP_TITLE = "Cafe Map Visualizer"
