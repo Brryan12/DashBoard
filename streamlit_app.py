@@ -26,8 +26,6 @@ def create_map():
 def display_map():
     try:
         # Mostrar indicador de carga personalizado
-        with st.spinner("⏳ Cargando mapa... (puede tomar hasta 30 segundos en Streamlit Cloud)"):
-            start_time = time.time()
             geojson_url = load_geojson_url()
             
             # Crear el mapa (usando cache_resource para mejor rendimiento)
@@ -47,8 +45,6 @@ def display_map():
                         "interactive": False
                     }
                 )
-                load_time = time.time() - start_time
-                st.success(f"✅ Mapa cargado en {load_time:.2f} segundos")
             except Exception as e:
                 st.warning(f"⚠️ Error al cargar GeoJSON completo: {str(e)}")
                 st.info("Intentando cargar versión simplificada...")
@@ -86,12 +82,9 @@ def display_map():
 def main():
     st.set_page_config(page_title=APP_TITLE, layout="wide")
     
-    # UI más eficiente
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.title(APP_TITLE)
-    with col2:
-        st.caption(APP_SUBTITLE)
+    st.title(APP_TITLE)
+    st.caption(APP_SUBTITLE)
+    
     # Mostrar mapa
     display_map()
     
