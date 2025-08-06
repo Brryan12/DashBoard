@@ -23,7 +23,7 @@ def display_map():
             geojson_url = load_geojson_url()
             
             # Crear el mapa centrado en Costa Rica
-            m = leafmap.Map(center=[9.7489, -83.7534], zoom=8)
+            m = leafmap.Map(center=[9.7489, -83.7534], zoom=8, tiles="CartoDB positron")
             
             # Método alternativo para GeoJSON grandes
             try:
@@ -35,39 +35,12 @@ def display_map():
                         "color": "blue",
                         "weight": 1,
                         "fillColor": "blue",
-                        "fillOpacity": 0.3
-                    },
-                    hover_style={
-                        "fillColor": "blue",
-                        "weight": 1,
-                        "fillOpacity": 0.7
+                        "fillOpacity": 0.3,
+                        "interactive": False
                     }
                 )
             except Exception as e:
                 st.warning(f"Error al cargar con método estándar: {str(e)}")
-                st.info("Intentando método alternativo...")
-                
-                # Método alternativo usando geopandas si está disponible
-                try:
-                    import geopandas as gpd
-                    
-                    # Cargar GeoJSON como GeoDataFrame
-                    gdf = gpd.read_file(geojson_url)
-                    
-                    # Simplificar geometría si es necesario
-                    if len(gdf) > 1000:
-                        st.info("Simplificando geometría para mejor rendimiento...")
-                        gdf = gdf.simplify(tolerance=0.01)
-                    
-                    # Añadir al mapa
-                    m.add_gdf(
-                        gdf,
-                        layer_name="Cobertura Arbórea (simplificado)",
-                        style={"color": "blue", "fillColor": "blue", "fillOpacity": 0.3}
-                    )
-                except ImportError:
-                    st.error("No se pudo cargar geopandas. Instálalo con 'pip install geopandas'")
-            
             # Mostrar el mapa en Streamlit 
             m.to_streamlit(height=700)
         
@@ -77,7 +50,6 @@ def display_map():
         El archivo GeoJSON es demasiado grande (>50MB). Recomendaciones:
         1. Usa un GeoJSON más pequeño
         2. Simplifica la geometría con mapshaper.org
-        3. Instala geopandas: pip install geopandas
         """)
 
 def main():
