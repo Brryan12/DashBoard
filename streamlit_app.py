@@ -4,6 +4,7 @@ import requests
 import os
 import time
 
+os.environ['OGR_GEOJSON_MAX_OBJ_SIZE'] = '0'
 # Correr la aplicación con: streamlit run streamlit_app.py
 APP_TITLE = "Cafe Map Visualizer"
 APP_SUBTITLE = "Prueba Dashboard"
@@ -91,18 +92,8 @@ def main():
         st.title(APP_TITLE)
     with col2:
         st.caption(APP_SUBTITLE)
-        
-    # Expander para opciones y más info (ahorra espacio)
-    with st.expander("ℹ️ Información y opciones"):
-        st.info("Visualizador de datos geoespaciales de cobertura arbórea en Costa Rica")
-        st.caption("Datos proporcionados por: tu fuente de datos")
-    
     # Mostrar mapa
     display_map()
     
-    # Mostrar estadísticas de rendimiento en el footer
-    st.caption("---")
-    st.caption("Desarrollado para Streamlit Cloud. [GitHub](https://github.com/Brryan12/DashBoard)")
-
 if __name__ == "__main__":
     main()
