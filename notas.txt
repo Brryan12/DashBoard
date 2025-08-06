@@ -1,6 +1,76 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 import requests
+
+# Correr la aplicación con: streamlit run streamlit_app.py
+APP_TITLE = "Cafe Map Visualizer"
+APP_SUBTITLE = "Prueba Dashboard"
+
+@st.cache_data
+def load_geojson_url():
+    """Carga el archivo GeoJSON desde URL con cache para mejorar rendimiento"""
+    # URL para el archivo GeoJSON de países (puedes reemplazar con tu URL)
+    url = "https://github.com/Brryan12/DashBoard/blob/main/Data/cober_arborea_2021_dissolve_4326.geojson?raw=true"
+
+    try:
+        return url
+    except Exception as e:
+        st.error(f"Error al cargar el GeoJSON desde URL: {str(e)}")
+        return None
+
+def display_map():
+    try:
+        geojson_url = load_geojson_url()
+        if geojson_url is None:
+            st.error("No se puede cargar el mapa sin el archivo GeoJSON")
+            return
+        
+        # Crear el mapa centrado en Costa Rica
+        m = leafmap.Map(center=[9.7489, -83.7534], zoom=4)
+        
+        # Agregar el GeoJSON desde URL
+        m.add_geojson(
+            geojson_url,
+            layer_name="Países",
+            style={
+                "color": "blue",
+                "weight": 1,
+                "fillColor": "green",
+                "fillOpacity": 0.3
+            },
+            hover_style={
+                "fillColor": "red",
+                "fillOpacity": 0.7
+            }
+        )
+        
+        # Mostrar el mapa en Streamlit usando el método to_streamlit()
+        m.to_streamlit(height=700)
+        
+    except Exception as e:
+        st.error(f"Error al cargar el mapa: {str(e)}")
+        st.info("Revisa la URL del GeoJSON o tu conexión a internet.")
+
+def main():
+    st.set_page_config(page_title=APP_TITLE, layout="wide")
+    st.title(APP_TITLE)
+    st.caption(APP_SUBTITLE)
+    
+    # Sidebar con información
+    st.sidebar.title("Información")
+    st.sidebar.info("Visualizador de datos geoespaciales en Streamlit usando leafmap")
+    
+    # Mostrar mapa
+    display_map()
+
+if __name__ == "__main__":
+    main()
+
+
+    ////////////
+    import streamlit as st
+import leafmap.foliumap as leafmap
+import requests
 import os
 
 # Establecer límite de tamaño para GeoJSON (0 para sin límite)
@@ -34,12 +104,11 @@ def display_map():
                     style={
                         "color": "blue",
                         "weight": 1,
-                        "fillColor": "blue",
-                        "fillOpacity": 0.3
+                        "fillColor": "green",
+                        "fillOpacity": 1
                     },
                     hover_style={
-                        "fillColor": "blue",
-                        "weight": 1,
+                        "fillColor": "red",
                         "fillOpacity": 0.7
                     }
                 )
@@ -63,12 +132,12 @@ def display_map():
                     m.add_gdf(
                         gdf,
                         layer_name="Cobertura Arbórea (simplificado)",
-                        style={"color": "blue", "fillColor": "blue", "fillOpacity": 0.3}
+                        style={"color": "blue", "fillColor": "green", "fillOpacity": 0.3}
                     )
                 except ImportError:
                     st.error("No se pudo cargar geopandas. Instálalo con 'pip install geopandas'")
             
-            # Mostrar el mapa en Streamlit 
+            # Mostrar el mapa en Streamlit
             m.to_streamlit(height=700)
         
     except Exception as e:
@@ -86,8 +155,8 @@ def main():
     st.caption(APP_SUBTITLE)
     
     # Sidebar con información
-    # st.sidebar.title("Información")
-    # st.sidebar.info("Visualizador de datos geoespaciales de cobertura arbórea en Costa Rica")
+    st.sidebar.title("Información")
+    st.sidebar.info("Visualizador de datos geoespaciales de cobertura arbórea en Costa Rica")
     
     # Mostrar mapa
     display_map()
