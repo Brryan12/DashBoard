@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_81cd338698166bd49ae6f1c905363c85 {
+                    position: relative;
+                    width: 850px;
+                    height: 600px;
+                    margin: 0 auto;
+                    left: 0.0%;
+                    top: 0.0%;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #0d1117;
+                color: white;
+                font-family: Arial, sans-serif;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css"/>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    
+                    <style>
+                        .foliumtooltip {
+                            background-color: white;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            padding: 4px;
+                            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    <!-- Add these custom styles for the header and layout -->
+    <style>
+            .header {
+                padding: 20px 40px;
+                background-color: #0d1117;
+            }
+            
+            .header h1 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                font-size: 2.5em;
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.5px;
+            }
+            
+            .header p {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400;
+                margin-top: 5px;
+                color: #aaa;
+                letter-spacing: 0.3px;
+            }
+        </style>
+</head>
+<body>
+    <!-- Header section -->
+    <div class="header">
+        <h1>Cafe Map Visualizer <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+        <p>Prueba Dashboard</p>
+    </div>
+    
+    <div class="folium-map" id="map_81cd338698166bd49ae6f1c905363c85" ></div>
+        
+    
+            
+        
+</body>
+<script>
+    
+    
+            var map_81cd338698166bd49ae6f1c905363c85 = L.map(
+                "map_81cd338698166bd49ae6f1c905363c85",
+                {
+                    center: [9.7489, -83.7534],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 8,
+  "zoomControl": true,
+  "preferCanvas": false,
+  "drawExport": false,
+  "layersControl": true,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_81cd338698166bd49ae6f1c905363c85);
+
+            
+
+        
+    
+            var tile_layer_0df3cc482fd793faed9c13fb1294a16f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 24,
+  "maxNativeZoom": 24,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_0df3cc482fd793faed9c13fb1294a16f.addTo(map_81cd338698166bd49ae6f1c905363c85);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_81cd338698166bd49ae6f1c905363c85);
+        
+    
+            var options = {
+              position: "topleft",
+              draw: {},
+              edit: {},
+            }
+                // FeatureGroup is to store editable layers.
+                var drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719 =
+                    new L.featureGroup().addTo(
+                        map_81cd338698166bd49ae6f1c905363c85
+                    );
+
+            options.edit.featureGroup = drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719;
+            var draw_control_e7988faa060bbbe729479c04b6c62719 = new L.Control.Draw(
+                options
+            ).addTo( map_81cd338698166bd49ae6f1c905363c85 );
+            map_81cd338698166bd49ae6f1c905363c85.on(L.Draw.Event.CREATED, function(e) {
+                var layer = e.layer,
+                    type = e.layerType;
+                var coords = JSON.stringify(layer.toGeoJSON());
+                layer.on('click', function() {
+                    alert(coords);
+                    console.log(coords);
+                });
+                drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719.addLayer(layer);
+            });
+            map_81cd338698166bd49ae6f1c905363c85.on('draw:created', function(e) {
+                drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719.addLayer(e.layer);
+            });
+
+            
+        
+    
+
+            var geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = {
+  "collapsed": true,
+  "position": "topleft",
+  "defaultMarkGeocode": true,
+  "zoom": 11,
+  "provider": "nominatim",
+  "providerOptions": {
+},
+};
+
+            // note: geocoder name should start with lowercase
+            var geocoderName_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971["provider"];
+
+            var customGeocoder_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = L.Control.Geocoder[ geocoderName_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 ](
+                geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971['providerOptions']
+            );
+            geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971["geocoder"] = customGeocoder_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971;
+
+            L.Control.geocoder(
+                geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971
+            ).on('markgeocode', function(e) {
+                var zoom = geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971['zoom'] || map_81cd338698166bd49ae6f1c905363c85.getZoom();
+                map_81cd338698166bd49ae6f1c905363c85.setView(e.geocode.center, zoom);
+            }).addTo(map_81cd338698166bd49ae6f1c905363c85);
+
+        
+    
+            map_81cd338698166bd49ae6f1c905363c85.fitBounds(
+                [[9.7489, -83.7534], [9.7489, -83.7534]],
+                {"maxZoom": 8}
+            );
+        
+    
+        function geo_json_f0d2f07a9b57aae13602e1289be89e44_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "blue", "fillColor": "blue", "fillOpacity": 0.3, "interactive": false, "weight": 1};
+            }
+        }
+        function geo_json_f0d2f07a9b57aae13602e1289be89e44_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": 0, "weight": 3};
+            }
+        }
+
+        function geo_json_f0d2f07a9b57aae13602e1289be89e44_onEachFeature(feature, layer) {
+
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_f0d2f07a9b57aae13602e1289be89e44.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_f0d2f07a9b57aae13602e1289be89e44_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_f0d2f07a9b57aae13602e1289be89e44 = L.geoJson(null, {
+                onEachFeature: geo_json_f0d2f07a9b57aae13602e1289be89e44_onEachFeature,
+            
+                style: geo_json_f0d2f07a9b57aae13602e1289be89e44_styler,
+            ...{
+}
+        });
+
+    fetch("data/cober_arborea_2021_dissolve_4326.geojson")
+        .then(response => response.json())
+        .then(data => {
+            geo_json_f0d2f07a9b57aae13602e1289be89e44.addData(data);
+        })
+        .catch(error => console.error("Error loading GeoJSON:", error));
+            
+    geo_json_f0d2f07a9b57aae13602e1289be89e44.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature => {
+        if (feature === null) {
+            return '';
+        } else if (typeof(feature)=='object') {
+            return JSON.stringify(feature);
+        } else {
+            return feature;
+        }
+    }
+    let fields = ["fid", "Codigo"];
+    let aliases = ["fid", "Codigo"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "sticky": true,
+  "className": "foliumtooltip",
+});
+                     
+    
+            geo_json_f0d2f07a9b57aae13602e1289be89e44.addTo(map_81cd338698166bd49ae6f1c905363c85);
+        
+    
+            map_81cd338698166bd49ae6f1c905363c85.fitBounds(
+                [[8.692751381658002, -85.6511139872691], [10.412401036673188, -82.7382876784012]],
+                {}
+            );
+        
+    
+            var layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_0df3cc482fd793faed9c13fb1294a16f,
+                },
+                overlays :  {
+                    "Cobertura Arb\u00f3rea" : geo_json_f0d2f07a9b57aae13602e1289be89e44,
+                },
+            };
+            let layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f = L.control.layers(
+                layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.base_layers,
+                layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_81cd338698166bd49ae6f1c905363c85);
+
+        
+</script>
+</html>
