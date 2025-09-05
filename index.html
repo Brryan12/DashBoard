@@ -1,395 +1,377 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
+    <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
-            <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_81cd338698166bd49ae6f1c905363c85 {
-                    position: relative;
-                    width: 850px;
-                    height: 600px;
-                    margin: 0 auto;
-                    left: 0.0%;
-                    top: 0.0%;
-                    border-radius: 8px;
-                    overflow: hidden;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-
-            <style>html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                background-color: #0d1117;
-                color: white;
-                font-family: Arial, sans-serif;
-            }
-            </style>
-
-            <style>#map {
-                position:absolute;
-                top:0;
-                bottom:0;
-                right:0;
-                left:0;
-                }
-            </style>
-
-            <script>
-                L_NO_TOUCH = false;
-                L_DISABLE_3D = false;
-            </script>
-
-        
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css"/>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    <!-- Load non-critical CSS asynchronously -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
-                    <style>
-                        .foliumtooltip {
-                            background-color: white;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                            padding: 4px;
-                            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-                        }
-                       .foliumtooltip table{
-                            margin: auto;
-                        }
-                        .foliumtooltip tr{
-                            text-align: left;
-                        }
-                        .foliumtooltip th{
-                            padding: 2px; padding-right: 8px;
-                        }
-                    </style>
-            
-    <!-- Add these custom styles for the header and layout -->
+    <noscript>
+        <!-- Fallback for users without JavaScript -->
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    </noscript>
+
     <style>
-            .header {
-                padding: 20px 40px;
-                background-color: #0d1117;
-            }
-            
-            .header h1 {
-                font-family: 'Poppins', sans-serif;
-                font-weight: 600;
-                font-size: 2.5em;
-                margin-bottom: 5px;
-                display: flex;
-                align-items: center;
-                letter-spacing: -0.5px;
-            }
-            
-            .header p {
-                font-family: 'Poppins', sans-serif;
-                font-weight: 400;
-                margin-top: 5px;
-                color: #aaa;
-                letter-spacing: 0.3px;
-            }
-        </style>
+        /* Inline critical CSS */
+        #map_81cd338698166bd49ae6f1c905363c85 {
+            position: relative;
+            width: 850px;
+            height: 600px;
+            margin: 0 auto;
+            left: 0.0%;
+            top: 0.0%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .leaflet-container { font-size: 1rem; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        #map {
+            position:absolute;
+            top:0;
+            bottom:0;
+            right:0;
+            left:0;
+        }
+        
+        .foliumtooltip {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .foliumtooltip table{
+            margin: auto;
+        }
+        .foliumtooltip tr{
+            text-align: left;
+        }
+        .foliumtooltip th{
+            padding: 2px; padding-right: 8px;
+        }
+        
+        .header {
+            padding: 20px 40px;
+            background-color: #0d1117;
+        }
+        
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            margin-top: 5px;
+            color: #aaa;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Loading indicator */
+        .map-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <!-- Header section -->
     <div class="header">
-        <h1>Cafe Map Visualizer <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
-        <p>Prueba Dashboard</p>
+        <h1>Coffee Map Visualizer</h1>
+        <p>Costa Rica</p>
     </div>
     
-    <div class="folium-map" id="map_81cd338698166bd49ae6f1c905363c85" ></div>
+    
+    <!-- Loading indicator -->
+    <div class="map-loading" id="mapLoading">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading map data...</p>
+    </div>
+    
+    <div class="folium-map" id="map_81cd338698166bd49ae6f1c905363c85"></div>
     
     <!-- Download Button -->
-<div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
-    <button id="downloadLayerBtn" class="btn btn-primary" style="background-color: #2c3e50; border: none; font-family: 'Poppins', sans-serif; padding: 8px 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
-        <i class="fa fa-download"></i> Download Layer
-    </button>
-</div>
+    <div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
+        <button id="downloadLayerBtn" class="btn btn-primary" style="background-color: #2c3e50; border: none; font-family: 'Poppins', sans-serif; padding: 8px 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+            <i class="fa fa-download"></i> Download Layer
+        </button>
+    </div>
 
-<script>
-    document.getElementById('downloadLayerBtn').addEventListener('click', function() {
-        // Get the currently visible overlay layer
-        let visibleLayer = null;
-        let layerName = "";
-        
-        // Check which overlay is currently visible
-        Object.entries(layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.overlays).forEach(([name, layer]) => {
-            if (map_81cd338698166bd49ae6f1c905363c85.hasLayer(layer)) {
-                visibleLayer = "data/cober_arborea_2021_dissolve_4326.geojson"; // Using the path directly
-                layerName = name.replace(/\s+/g, '_').toLowerCase();
-            }
+    <!-- Load scripts with defer attribute -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js" defer></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js" defer></script>
+
+    <script>
+        // Show loading indicator when page starts loading
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('mapLoading').style.display = 'block';
         });
-        
-        if (visibleLayer) {
-            // Create a download link
-            fetch(visibleLayer)
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = layerName + '.geojson';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                })
-                .catch(error => console.error("Error downloading the layer:", error));
-        } else {
-            alert("No visible layer to download. Please select a layer first.");
-        }
-    });
-</script>
-</body>
-<script>
-    
-    
+
+        // Wait for all resources to load
+        window.addEventListener('load', function() {
+            // Initialize map after all resources are loaded
+            initializeMap();
+        });
+
+        function initializeMap() {
+            // Your map initialization code goes here
             var map_81cd338698166bd49ae6f1c905363c85 = L.map(
                 "map_81cd338698166bd49ae6f1c905363c85",
                 {
                     center: [9.7489, -83.7534],
                     crs: L.CRS.EPSG3857,
-                    ...{
-  "zoom": 8,
-  "zoomControl": true,
-  "preferCanvas": false,
-  "drawExport": false,
-  "layersControl": true,
-}
-
+                    zoom: 8,
+                    zoomControl: true,
+                    preferCanvas: false,  // Using canvas can improve performance with many elements
                 }
             );
+            
+            // Add scale control
             L.control.scale().addTo(map_81cd338698166bd49ae6f1c905363c85);
 
-            
-
-        
-    
-            var tile_layer_0df3cc482fd793faed9c13fb1294a16f = L.tileLayer(
+            // Add tile layer
+            var tile_layer = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
                 {
-  "minZoom": 0,
-  "maxZoom": 24,
-  "maxNativeZoom": 24,
-  "noWrap": false,
-  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
-  "subdomains": "abcd",
-  "detectRetina": false,
-  "tms": false,
-  "opacity": 1,
-}
-
-            );
-        
-    
-            tile_layer_0df3cc482fd793faed9c13fb1294a16f.addTo(map_81cd338698166bd49ae6f1c905363c85);
-        
-    
-            L.control.fullscreen(
-                {
-  "position": "topleft",
-  "title": "Full Screen",
-  "titleCancel": "Exit Full Screen",
-  "forceSeparateButton": false,
-}
+                    minZoom: 0,
+                    maxZoom: 24,
+                    maxNativeZoom: 24,
+                    noWrap: false,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    subdomains: "abcd",
+                    detectRetina: false,
+                    tms: false,
+                    opacity: 1,
+                }
             ).addTo(map_81cd338698166bd49ae6f1c905363c85);
-        
-    
-            var options = {
-              position: "topleft",
-              draw: {},
-              edit: {},
-            }
-                // FeatureGroup is to store editable layers.
-                var drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719 =
-                    new L.featureGroup().addTo(
-                        map_81cd338698166bd49ae6f1c905363c85
-                    );
-
-            options.edit.featureGroup = drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719;
-            var draw_control_e7988faa060bbbe729479c04b6c62719 = new L.Control.Draw(
-                options
-            ).addTo( map_81cd338698166bd49ae6f1c905363c85 );
-            map_81cd338698166bd49ae6f1c905363c85.on(L.Draw.Event.CREATED, function(e) {
-                var layer = e.layer,
-                    type = e.layerType;
-                var coords = JSON.stringify(layer.toGeoJSON());
-                layer.on('click', function() {
-                    alert(coords);
-                    console.log(coords);
-                });
-                drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719.addLayer(layer);
-            });
-            map_81cd338698166bd49ae6f1c905363c85.on('draw:created', function(e) {
-                drawnItems_draw_control_e7988faa060bbbe729479c04b6c62719.addLayer(e.layer);
-            });
-
             
-        
-    
+            // Add fullscreen control
+            L.control.fullscreen({
+                position: "topleft",
+                title: "Full Screen",
+                titleCancel: "Exit Full Screen",
+                forceSeparateButton: false,
+            }).addTo(map_81cd338698166bd49ae6f1c905363c85);
+            
+            // Draw control
+            var drawnItems = new L.featureGroup().addTo(map_81cd338698166bd49ae6f1c905363c85);
+            var drawControl = new L.Control.Draw({
+                position: "topleft",
+                draw: {},
+                edit: {
+                    featureGroup: drawnItems
+                }
+            }).addTo(map_81cd338698166bd49ae6f1c905363c85);
+            
+            map_81cd338698166bd49ae6f1c905363c85.on(L.Draw.Event.CREATED, function(e) {
+                var layer = e.layer;
+                drawnItems.addLayer(layer);
+            });
 
-            var geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = {
-  "collapsed": true,
-  "position": "topleft",
-  "defaultMarkGeocode": true,
-  "zoom": 11,
-  "provider": "nominatim",
-  "providerOptions": {
-},
-};
-
-            // note: geocoder name should start with lowercase
-            var geocoderName_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971["provider"];
-
-            var customGeocoder_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 = L.Control.Geocoder[ geocoderName_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971 ](
-                geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971['providerOptions']
-            );
-            geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971["geocoder"] = customGeocoder_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971;
-
-            L.Control.geocoder(
-                geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971
-            ).on('markgeocode', function(e) {
-                var zoom = geocoderOpts_geocoder_c7dc1cd28fc27fc4ff8e65fff4216971['zoom'] || map_81cd338698166bd49ae6f1c905363c85.getZoom();
-                map_81cd338698166bd49ae6f1c905363c85.setView(e.geocode.center, zoom);
+            // Geocoder control
+            L.Control.geocoder({
+                collapsed: true,
+                position: "topleft",
+                defaultMarkGeocode: true,
+                zoom: 11,
+                provider: "nominatim",
+            }).on('markgeocode', function(e) {
+                map_81cd338698166bd49ae6f1c905363c85.setView(e.geocode.center, 11);
             }).addTo(map_81cd338698166bd49ae6f1c905363c85);
 
-        
-    
-            map_81cd338698166bd49ae6f1c905363c85.fitBounds(
-                [[9.7489, -83.7534], [9.7489, -83.7534]],
-                {"maxZoom": 8}
-            );
-        
-    
-        function geo_json_f0d2f07a9b57aae13602e1289be89e44_styler(feature) {
-            switch(feature.id) {
-                default:
-                    return {"color": "blue", "fillColor": "blue", "fillOpacity": 0.3, "interactive": false, "weight": 1};
-            }
-        }
-        function geo_json_f0d2f07a9b57aae13602e1289be89e44_highlighter(feature) {
-            switch(feature.id) {
-                default:
-                    return {"fillOpacity": 0, "weight": 3};
-            }
-        }
+            // Load GeoJSON data with fetch
+            fetch("data/cober_arborea_2021_dissolve_4326.geojson")
+                .then(response => response.json())
+                .then(data => {
+                    // Simplify GeoJSON if it's too large
+                    const simplifiedData = simplifyGeoJSON(data);
+                    
+                    // Create GeoJSON layer with simplified data
+                    var geoJsonLayer = L.geoJson(simplifiedData, {
+                        style: function(feature) {
+                            return {
+                                color: "blue",
+                                fillColor: "blue",
+                                fillOpacity: 0.3,
+                                interactive: false,
+                                weight: 1
+                            };
+                        },
+                        onEachFeature: function(feature, layer) {
+                            layer.on({
+                                mouseout: function(e) {
+                                    if(typeof e.target.setStyle === "function") {
+                                        geoJsonLayer.resetStyle(e.target);
+                                    }
+                                },
+                                mouseover: function(e) {
+                                    if(typeof e.target.setStyle === "function") {
+                                        e.target.setStyle({
+                                            fillOpacity: 0,
+                                            weight: 3
+                                        });
+                                    }
+                                },
+                            });
+                            
+                            // Bind tooltip
+                            layer.bindTooltip(
+                                createTooltip(feature),
+                                {sticky: true, className: "foliumtooltip"}
+                            );
+                        }
+                    }).addTo(map_81cd338698166bd49ae6f1c905363c85);
+                    
+                    // Fit bounds
+                    map_81cd338698166bd49ae6f1c905363c85.fitBounds(geoJsonLayer.getBounds());
+                    
+                    // Add layer control
+                    var layerControl = L.control.layers({
+                        "CartoDB Positron": tile_layer
+                    }, {
+                        "Cobertura Arbórea": geoJsonLayer
+                    }, {
+                        position: "topright",
+                        collapsed: true
+                    }).addTo(map_81cd338698166bd49ae6f1c905363c85);
+                    
+                    // Hide loading indicator
+                    document.getElementById('mapLoading').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error("Error loading GeoJSON:", error);
+                    document.getElementById('mapLoading').style.display = 'none';
+                });
 
-        function geo_json_f0d2f07a9b57aae13602e1289be89e44_onEachFeature(feature, layer) {
-
-            layer.on({
-                mouseout: function(e) {
-                    if(typeof e.target.setStyle === "function"){
-                            geo_json_f0d2f07a9b57aae13602e1289be89e44.resetStyle(e.target);
-                    }
-                },
-                mouseover: function(e) {
-                    if(typeof e.target.setStyle === "function"){
-                        const highlightStyle = geo_json_f0d2f07a9b57aae13602e1289be89e44_highlighter(e.target.feature)
-                        e.target.setStyle(highlightStyle);
-                    }
-                },
+            // Download button functionality
+            document.getElementById('downloadLayerBtn').addEventListener('click', function() {
+                fetch("data/cober_arborea_2021_dissolve_4326.geojson")
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = 'cobertura_arborea.geojson';
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    })
+                    .catch(error => console.error("Error downloading the layer:", error));
             });
-        };
-        var geo_json_f0d2f07a9b57aae13602e1289be89e44 = L.geoJson(null, {
-                onEachFeature: geo_json_f0d2f07a9b57aae13602e1289be89e44_onEachFeature,
-            
-                style: geo_json_f0d2f07a9b57aae13602e1289be89e44_styler,
-            ...{
-}
-        });
-
-    fetch("data/cober_arborea_2021_dissolve_4326.geojson")
-        .then(response => response.json())
-        .then(data => {
-            geo_json_f0d2f07a9b57aae13602e1289be89e44.addData(data);
-        })
-        .catch(error => console.error("Error loading GeoJSON:", error));
-            
-    geo_json_f0d2f07a9b57aae13602e1289be89e44.bindTooltip(
-    function(layer){
-    let div = L.DomUtil.create('div');
-    
-    let handleObject = feature => {
-        if (feature === null) {
-            return '';
-        } else if (typeof(feature)=='object') {
-            return JSON.stringify(feature);
-        } else {
-            return feature;
         }
-    }
-    let fields = ["fid", "Codigo"];
-    let aliases = ["fid", "Codigo"];
-    let table = '<table>' +
-        String(
-        fields.map(
-        (v,i)=>
-        `<tr>
-            <th>${aliases[i]}</th>
-            
-            <td>${handleObject(layer.feature.properties[v])}</td>
-        </tr>`).join(''))
-    +'</table>';
-    div.innerHTML=table;
-    
-    return div
-    }
-    ,{
-  "sticky": true,
-  "className": "foliumtooltip",
-});
-                     
-    
-            geo_json_f0d2f07a9b57aae13602e1289be89e44.addTo(map_81cd338698166bd49ae6f1c905363c85);
-        
-    
-            map_81cd338698166bd49ae6f1c905363c85.fitBounds(
-                [[8.692751381658002, -85.6511139872691], [10.412401036673188, -82.7382876784012]],
-                {}
-            );
-        
-    
-            var layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers = {
-                base_layers : {
-                    "cartodbpositron" : tile_layer_0df3cc482fd793faed9c13fb1294a16f,
-                },
-                overlays :  {
-                    "Cobertura Arb\u00f3rea" : geo_json_f0d2f07a9b57aae13602e1289be89e44,
-                },
-            };
-            let layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f = L.control.layers(
-                layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.base_layers,
-                layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.overlays,
-                {
-  "position": "topright",
-  "collapsed": true,
-  "autoZIndex": true,
-}
-            ).addTo(map_81cd338698166bd49ae6f1c905363c85);
 
-        
-</script>
+        // Function to create tooltip content
+        function createTooltip(feature) {
+            let div = document.createElement('div');
+            
+            function handleObject(value) {
+                if (value === null) {
+                    return '';
+                } else if (typeof value === 'object') {
+                    return JSON.stringify(value);
+                } else {
+                    return value;
+                }
+            }
+            
+            const fields = ["fid", "Codigo"];
+            const aliases = ["fid", "Codigo"];
+            
+            let table = '<table>';
+            fields.forEach((field, i) => {
+                if (feature.properties[field] !== undefined) {
+                    table += `<tr>
+                        <th>${aliases[i]}</th>
+                        <td>${handleObject(feature.properties[field])}</td>
+                    </tr>`;
+                }
+            });
+            table += '</table>';
+            
+            div.innerHTML = table;
+            return div;
+        }
+
+        // Function to simplify GeoJSON (reduce precision and remove unnecessary properties)
+        function simplifyGeoJSON(data) {
+            // If the GeoJSON is very large, consider simplifying it
+            // This is a basic implementation - you might want to use a library like
+            // turf.js for more advanced simplification
+            if (data.features && data.features.length > 1000) {
+                console.warn("Large GeoJSON detected. Consider simplifying server-side for better performance.");
+                
+                // Simple coordinate precision reduction
+                data.features.forEach(feature => {
+                    if (feature.geometry && feature.geometry.type === "Polygon") {
+                        feature.geometry.coordinates = feature.geometry.coordinates.map(ring => {
+                            return ring.map(coord => {
+                                return [
+                                    Math.round(coord[0] * 10000) / 10000,
+                                    Math.round(coord[1] * 10000) / 10000
+                                ];
+                            });
+                        });
+                    }
+                });
+            }
+            return data;
+        }
+    </script>
+</body>
 </html>
