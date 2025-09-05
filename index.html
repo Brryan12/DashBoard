@@ -120,10 +120,49 @@
     </div>
     
     <div class="folium-map" id="map_81cd338698166bd49ae6f1c905363c85" ></div>
-        
     
-            
+    <!-- Download Button -->
+<div style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
+    <button id="downloadLayerBtn" class="btn btn-primary" style="background-color: #2c3e50; border: none; font-family: 'Poppins', sans-serif; padding: 8px 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+        <i class="fa fa-download"></i> Download Layer
+    </button>
+</div>
+
+<script>
+    document.getElementById('downloadLayerBtn').addEventListener('click', function() {
+        // Get the currently visible overlay layer
+        let visibleLayer = null;
+        let layerName = "";
         
+        // Check which overlay is currently visible
+        Object.entries(layer_control_e2e42112c9ed5ec7d07d4a9ec52c083f_layers.overlays).forEach(([name, layer]) => {
+            if (map_81cd338698166bd49ae6f1c905363c85.hasLayer(layer)) {
+                visibleLayer = "data/cober_arborea_2021_dissolve_4326.geojson"; // Using the path directly
+                layerName = name.replace(/\s+/g, '_').toLowerCase();
+            }
+        });
+        
+        if (visibleLayer) {
+            // Create a download link
+            fetch(visibleLayer)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = layerName + '.geojson';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(error => console.error("Error downloading the layer:", error));
+        } else {
+            alert("No visible layer to download. Please select a layer first.");
+        }
+    });
+</script>
 </body>
 <script>
     
