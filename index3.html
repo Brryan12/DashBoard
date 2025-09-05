@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <style>
+    html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
+    #map { position:absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    var map = L.map("map", {
+      center: [9.7489, -83.7534],
+      zoom: 8,
+      zoomControl: true,
+    });
+
+    // Base map
+    var basemap = L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: "abcd",
+        maxZoom: 24,
+      }
+    ).addTo(map);
+
+    L.control.scale().addTo(map);
+    L.control.fullscreen({ position: "topleft" }).addTo(map);
+
+    // Contenedor para los shapes dibujados
+    var drawnItems = new L.FeatureGroup().addTo(map);
+    new L.Control.Draw({ edit: { featureGroup: drawnItems } }).addTo(map);
+
+    map.on(L.Draw.Event.CREATED, function(e) {
+      var layer = e.layer;
+      drawnItems.addLayer(layer);
+    });
+
+    // Geocoder
+    L.Control.geocoder({ position: "topleft", collapsed: true }).addTo(map);
+
+    // Cargar GeoJSON desde archivo externo
+    fetch("data/cober_arborea_2021_dissolve_4326.geojson")
+    .then(response => response.json())
+    .then(data => {
+        var geoLayer = L.geoJson(data, {
+        style: { color: "blue", fillOpacity: 0.3, weight: 1 },
+        onEachFeature: function(feature, layer) {
+            if (feature.properties) {
+            layer.bindTooltip(
+                `<b>fid:</b> ${feature.properties.fid || ""}<br>
+                <b>Código:</b> ${feature.properties.Codigo || ""}`,
+                { sticky: true }
+            );
+            }
+        }
+        }).addTo(map);
+        map.fitBounds(geoLayer.getBounds());
+    });
+  </script>
+</body>
+</html>
